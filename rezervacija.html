@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Home | Rezervacija termina i upiti</title>
+    <title>Go Home | Rezervacija</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Leaflet.js CSS za interaktivnu kartu -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <style>
         :root {
-            --white-base: #ffffff;    /* 60% dominantna čistoća */
-            --black-accent: #111111;  /* 20% premium struktura */
-            --pink-brand: #f3daf1;   /* 20% identitet klijentice */
+            --white-base: #ffffff;
+            --black-accent: #111111;
+            --pink-brand: #f3daf1;
             --gray-light: #fdfafc;
             --text-main: #222222;
             --text-muted: #555555;
@@ -31,22 +29,19 @@
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--black-accent); text-decoration: none; text-transform: uppercase; }
         .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 5px; display: block; opacity: 0.5; }
         .nav-links { display: flex; gap: 20px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; padding: 5px 0; }
-        .nav-links a:hover, .nav-links a.active { color: var(--black-accent); border-bottom: 2px solid var(--pink-brand); }
+        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { border-bottom: 2px solid var(--pink-brand); }
 
         /* HEADER */
         .page-header { background: var(--gray-light); padding: 60px 7%; text-align: center; border-bottom: 1px solid #eee; }
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px; }
         .page-header p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
-        /* MAP SEKCIJA */
-        .map-section { padding: 60px 7%; text-align: center; background: var(--white-base); }
-        .map-section h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--black-accent); margin-bottom: 15px; }
-        .map-section p.map-desc { max-width: 800px; margin: 0 auto 35px; color: var(--text-muted); font-size: 0.95rem; }
+        /* KARTA I OBRAZAC (Screenshot 1 & 2) */
+        .map-section { padding: 60px 7%; text-align: center; }
         #live-map { width: 100%; height: 500px; max-width: 1100px; margin: 0 auto; border: 1px solid var(--black-accent); position: relative; z-index: 1; }
         .map-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 20px; font-style: italic; }
 
-        /* FORM SEKCIJA */
         .form-section { padding: 40px 7% 80px; background: var(--white-base); text-align: center; }
         .form-split-container { display: grid; grid-template-columns: 0.8fr 1.2fr; max-width: 1200px; margin: 0 auto; border: 1px solid var(--black-accent); }
         .form-left-img { background: url('https://images.unsplash.com/photo-1522337360788-8b13df772650?q=80&w=600&auto=format&fit=crop'); background-size: cover; background-position: center; width: 100%; height: 100%; min-height: 500px; }
@@ -58,49 +53,58 @@
         ::placeholder { color: rgba(255, 255, 255, 0.4); font-size: 0.9rem; }
 
         .gdpr-box { display: flex; gap: 15px; align-items: flex-start; margin-top: 20px; margin-bottom: 35px; }
-        .gdpr-box input { margin-top: 5px; accent-color: var(--pink-brand); cursor: pointer; }
+        .gdpr-box input { margin-top: 5px; accent-color: var(--pink-brand); }
         .gdpr-box label { color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; line-height: 1.6; }
         .gdpr-box label a { color: #fff; text-decoration: underline; cursor: pointer; font-weight: 600; }
 
         .btn-submit-form { width: max-content; padding: 18px 40px; background: transparent; color: #fff; border: 1px solid #fff; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
         .btn-submit-form:hover { background: #fff; color: var(--dark-form-bg); }
 
-        /* LUKSUZNI GDPR POP-UP MODAL (Fluid.hr stil) */
-        .gdpr-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 3000;
-            display: none; justify-content: center; align-items: center;
-            padding: 20px; backdrop-filter: blur(5px);
-        }
-        .gdpr-modal-content {
-            background: var(--white-base); color: var(--text-main);
-            width: 100%; max-width: 850px; max-height: 85vh;
-            overflow-y: auto; padding: 45px; border: 1px solid var(--black-accent);
-            position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-        }
-        .close-modal-btn {
-            position: absolute; top: 20px; right: 25px; font-size: 2rem;
-            background: none; border: none; cursor: pointer; color: var(--black-accent);
-        }
+        /* MODAL */
+        .gdpr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .gdpr-modal-content { background: var(--white-base); color: var(--text-main); width: 100%; max-width: 850px; max-height: 85vh; overflow-y: auto; padding: 45px; border: 1px solid var(--black-accent); position: relative; }
+        .close-modal-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--black-accent); }
         .gdpr-modal-content h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; border-bottom: 2px solid var(--pink-brand); padding-bottom: 10px; }
-        .gdpr-modal-content p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; }
-        
-        /* Unutarnji akordeoni za dugačke sekcije */
         .gdpr-sub-item { border-bottom: 1px solid #eee; padding: 15px 0; }
         .gdpr-sub-trigger { width: 100%; background: none; border: none; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; justify-content: space-between; color: var(--black-accent); }
-        .gdpr-sub-trigger:hover { color: var(--text-muted); }
         .gdpr-sub-content { padding: 15px 5px 5px; font-size: 0.85rem; color: var(--text-muted); display: none; line-height: 1.6; }
         .gdpr-sub-content ul { list-style: square; padding-left: 20px; margin-top: 5px; }
 
-        /* FOOTER */
-        footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; }
-        .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; position: relative; }
-        .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
-        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .input-group { display: flex; border: 1px solid #fff; background: #fff; margin-top: 15px; }
-        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
-        .input-group button { padding: 0 25px; background: #fff; border: none; font-weight: 700; text-transform: uppercase; border-left: 1px solid #111; cursor: pointer; }
+        /* REORGANIZIRANI PREMIUM FOOTER */
+        .premium-fluid-footer {
+            background: #11141a !important;
+            color: #ffffff !important;
+            padding: 90px 7% 40px !important;
+            font-family: 'Montserrat', sans-serif !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+            margin-top: 60px;
+        }
+        .footer-top-row { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 50px; margin-bottom: 50px; }
+        .footer-brand h2 { font-family: 'Playfair Display', serif !important; font-size: 2.2rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: -1px !important; margin-bottom: 5px !important; color: #fff !important; }
+        .footer-brand span { font-size: 0.65rem !important; color: #f3daf1 !important; letter-spacing: 5px !important; text-transform: uppercase !important; display: block !important; font-weight: 700 !important; }
+        .footer-nav-links { display: flex; gap: 25px; list-style: none; flex-wrap: wrap; max-width: 750px; justify-content: flex-end; }
+        .footer-nav-links a { color: #a1a6b5 !important; text-decoration: none !important; font-size: 0.8rem !important; text-transform: uppercase; letter-spacing: 1px !important; font-weight: 600 !important; transition: 0.3s !important; }
+        .footer-nav-links a:hover { color: #fff !important; border-bottom: 1px solid #f3daf1 !important; }
+        .footer-main-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+        .footer-contact-block h3, .footer-cta-form-box h3 { font-size: 1.1rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; margin-bottom: 35px !important; font-weight: 700 !important; position: relative !important; color: #fff !important; }
+        .footer-contact-block h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 2px; background: #f3daf1; }
+        .contact-meta-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; color: #a1a6b5 !important; font-size: 0.95rem !important; }
+        .contact-meta-item strong { color: #fff !important; }
+        .footer-social-wrapper { margin-top: 35px; display: flex; gap: 20px; }
+        .footer-social-wrapper a { color: #fff !important; text-decoration: none !important; font-size: 0.8rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; font-weight: 700 !important; transition: 0.3s !important; border-bottom: 1px solid rgba(255,255,255,0.2) !important; padding-bottom: 3px; }
+        .footer-social-wrapper a:hover { color: #f3daf1 !important; border-bottom-color: #f3daf1 !important; }
+        .footer-cta-form-box p { color: #a1a6b5 !important; font-size: 0.85rem !important; line-height: 1.6 !important; margin-bottom: 30px !important; text-align: left !important; }
+        .reorganized-input-group { display: flex; border-bottom: 1px solid rgba(255, 255, 255, 0.2); background: transparent; transition: 0.3s; }
+        .reorganized-input-group:focus-within { border-bottom-color: #f3daf1; }
+        .reorganized-input-group input { flex: 1; padding: 15px 5px !important; background: transparent !important; border: none !important; outline: none !important; font-family: 'Montserrat', sans-serif !important; font-size: 0.95rem !important; color: #fff !important; }
+        .reorganized-input-group button { padding: 0 35px !important; background: transparent !important; border: none !important; color: #fff !important; font-weight: 700 !important; text-transform: uppercase; font-size: 0.75rem !important; letter-spacing: 2px !important; cursor: pointer !important; transition: 0.3s !important; }
+        .reorganized-input-group button:hover { color: #f3daf1 !important; }
+        .footer-gdpr-text { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; }
+        .footer-gdpr-text input { margin-top: 4px; accent-color: #f3daf1; }
+        .footer-gdpr-text label { font-size: 0.75rem !important; color: rgba(161, 166, 181, 0.7) !important; line-height: 1.6 !important; text-align: left !important; }
+        .footer-gdpr-text label a { color: #fff !important; text-decoration: underline !important; }
+        .footer-base-row { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem !important; color: #666 !important; }
+        .footer-base-row span a { color: #f3daf1 !important; text-decoration: none; font-weight: 600; letter-spacing: 1px; }
 
         .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; }
         .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
@@ -110,11 +114,11 @@
         @media (max-width: 992px) {
             .form-split-container { grid-template-columns: 1fr; }
             .form-left-img { display: none; }
-            .form-right-content { padding: 40px 20px; }
-            .footer-grid { grid-template-columns: 1fr; }
+            .footer-top-row { flex-direction: column; gap: 30px; align-items: center; text-align: center; }
+            .footer-nav-links { justify-content: center; gap: 15px; }
+            .footer-main-grid { grid-template-columns: 1fr; gap: 50px; }
             .nav-links { display: none; }
             #live-map { height: 350px; }
-            .gdpr-modal-content { padding: 25px; }
         }
     </style>
 </head>
@@ -146,7 +150,6 @@
         <h1>Rezervacija termina i upiti</h1>
     </header>
 
-    <!-- KARTA -->
     <section class="map-section" data-aos="fade-up">
         <h2>Servisno područje (do 20 km)</h2>
         <p class="map-desc">Dolazimo na vašu adresu u radijusu do 20 km od centra Osijeka. Za lokacije izvan tog područja moguć je dolazak uz prethodni dogovor.</p>
@@ -154,37 +157,27 @@
         <p class="map-note">Niste sigurni jeste li unutar područja? Nazovite nas ili pošaljite mail i provjerit ćemo.</p>
     </section>
 
-    <!-- FORMA -->
     <section class="form-section" data-aos="fade-up" data-aos-delay="100">
         <div class="form-split-container">
             <div class="form-left-img"></div>
             <div class="form-right-content">
                 <form action="https://formsubmit.co/gohomefrizerski@gmail.com" method="POST">
-                    <div class="premium-input-group">
-                        <input type="text" name="Ime i Prezime" placeholder="Vaše ime i prezime" required>
-                    </div>
-                    <div class="premium-input-group">
-                        <input type="email" name="Email" placeholder="Vaš email" required>
-                    </div>
-                    <div class="premium-input-group">
-                        <input type="tel" name="Telefon" placeholder="Vaš broj telefona" required>
-                    </div>
-                    <div class="premium-input-group">
-                        <textarea name="Poruka/Adresa" rows="4" placeholder="Vaša poruka (možete odmah navesti i željenu adresu dolaska)" required></textarea>
-                    </div>
+                    <div class="premium-input-group"><input type="text" name="Ime i Prezime" placeholder="Vaše ime i prezime" required></div>
+                    <div class="premium-input-group"><input type="email" name="Email" placeholder="Vaš email" required></div>
+                    <div class="premium-input-group"><input type="tel" name="Telefon" placeholder="Vaš broj telefona" required></div>
+                    <div class="premium-input-group"><textarea name="Poruka/Adresa" rows="4" placeholder="Vaša poruka (možete odmah navesti i željenu adresu dolaska)" required></textarea></div>
                     
                     <div class="gdpr-box">
                         <input type="checkbox" id="gdpr-check" required>
                         <label for="gdpr-check">Suglasan/na sam da Go Home, obrt za usluge, vl. Slađana Tašić prikuplja i obrađuje moje osobne podatke (ime, e-mail, broj telefona, poruku) isključivo u svrhu realizacije frizerske usluge i kontaktiranja u vezi rezervacije. Pročitao/la sam i prihvaćam <a onclick="openGdprModal()">Izjavu o privatnosti (GDPR)</a>.</label>
                     </div>
-                    
                     <button type="submit" class="btn-submit-form">Pošalji upit/rezervaciju</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- MODALNI POP-UP PROZOR ZA NJEZIN GDPR TEXT -->
+    <!-- POP-UP MODAL ZA GDPR TEXT -->
     <div id="gdprModal" class="gdpr-modal">
         <div class="gdpr-modal-content">
             <button class="close-modal-btn" onclick="closeGdprModal()">&times;</button>
@@ -198,133 +191,114 @@
                         <strong>Go Home, obrt za usluge, vl. Slađana Tašić</strong><br>
                         Sjedište: Petra Preradovića 25, 33514 Ćeralije, Republika Hrvatska<br>
                         OIB: 98885240913<br>
-                        Područje djelovanja: Osijek i okolica (do 20 km)<br>
                         E-mail: gohomefrizerski@gmail.com<br>
                         Telefon: +385 99 481 9194
                     </div>
                 </div>
-                
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">2. Koje podatke prikupljamo <span>+</span></button>
-                    <div class="gdpr-sub-content">
-                        Putem kontakt obrasca i obrasca za rezervaciju prikupljamo isključivo sljedeće osobne podatke:
-                        <ul>
-                            <li>ime i prezime</li>
-                            <li>broj telefona</li>
-                            <li>adresu e-pošte</li>
-                            <li>sadržaj poruke (eventualne dodatne informacije koje sami navedete, npr. adresa za dolazak na uslugu)</li>
-                        </ul>
-                    </div>
+                    <div class="gdpr-sub-content">Putem kontakt obrasca i obrasca za rezervaciju prikupljamo isključivo sljedeće osobne podatke: ime i prezime, broj telefona, adresu e-pošte i sadržaj poruke.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">3. Svrha obrade osobnih podataka <span>+</span></button>
-                    <div class="gdpr-sub-content">
-                        Vaši osobni podaci prikupljaju se i obrađuju isključivo u svrhu realizacije frizerske usluge, odnosno radi:
-                        <ul>
-                            <li>kontaktiranja i odgovora na Vaš upit,</li>
-                            <li>dogovora i rezervacije termina,</li>
-                            <li>dolaska na adresu radi pružanja usluge,</li>
-                            <li>komunikacije vezane uz pruženu uslugu.</li>
-                        </ul>
-                        Vaše podatke nećemo koristiti u marketinške svrhe, niti ćemo ih prosljeđivati trećim stranama, osim ako je to izričito propisano zakonom.
-                    </div>
+                    <div class="gdpr-sub-content">Vaši osobni podaci prikupljaju se i obrađuju isključivo u svrhu realizacije frizerske usluge (kontakt, dogovor termina, dolazak na adresu). Podatke ne prosljeđujemo trećim stranama.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">4. Pravna osnova obrade <span>+</span></button>
-                    <div class="gdpr-sub-content">Pravna osnova za obradu Vaših osobnih podataka je Vaša izričita privola (čl. 6. st. 1. t. (a) GDPR-a), koju dajete označavanjem polja za pristanak prilikom slanja obrasca, te poduzimanje radnji prije sklapanja ugovora na Vaš zahtjev (čl. 6. st. 1. t. (b) GDPR-a).</div>
+                    <div class="gdpr-sub-content">Pravna osnova je Vaša izričita privola (čl. 6. st. 1. t. (a) GDPR-a), koju dajete označavanjem polja za pristanak prilikom slanja obrasca.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">5. Razdoblje čuvanja podataka <span>+</span></button>
-                    <div class="gdpr-sub-content">Osobne podatke čuvamo samo onoliko dugo koliko je potrebno za ostvarenje gore navedene svrhe, odnosno najduže 12 mjeseci nakon posljednjeg kontakta, nakon čega se podaci brišu, osim ako zakon ne propisuje dulje razdoblje čuvanja.</div>
+                    <div class="gdpr-sub-content">Osobne podatke čuvamo najduže 12 mjeseci nakon posljednjeg kontakta, nakon čega se podaci brišu.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">6. Vaša prava <span>+</span></button>
-                    <div class="gdpr-sub-content">
-                        U skladu s GDPR-om, u svakom trenutku imate pravo:
-                        <ul>
-                            <li>pristupa svojim osobnim podacima,</li>
-                            <li>ispravka netočnih ili nepotpunih podataka,</li>
-                            <li>brisanja podataka („pravo na zaborav”),</li>
-                            <li>ograničenja obrade, prigovora na obradu, prenosivosti podataka,</li>
-                            <li>povlačenja privole u bilo kojem trenutku.</li>
-                        </ul>
-                        Svoja prava možete ostvariti slanjem zahtjeva na e-mail: gohomefrizerski@gmail.com.
-                    </div>
+                    <div class="gdpr-sub-content">U svakom trenutku imate pravo na pristup, ispravak, brisanje ("pravo na zaborav"), ograničenje obrade i povlačenje privole slanjem zahtjeva na e-mail: gohomefrizerski@gmail.com.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">7. Pravo na pritužbu <span>+</span></button>
-                    <div class="gdpr-sub-content">Ako smatrate da je obrada Vaših osobnih podataka u suprotnosti s propisima, imate pravo podnijeti pritužbu nadzornom tijelu — Agenciji za zaštitu osobnih podataka (AZOP), Selska cesta 136, 10000 Zagreb, azop.hr.</div>
+                    <div class="gdpr-sub-content">Imate pravo podnijeti pritužbu nadzornom tijelu — Agenciji za zaštitu osobnih podataka (AZOP), Selska cesta 136, 10000 Zagreb.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">8. Sigurnost podataka <span>+</span></button>
-                    <div class="gdpr-sub-content">Poduzimamo razumne tehničke i organizacijske mjere kako bismo zaštitili Vaše osobne podatke od neovlaštenog pristupa, gubitka ili zlouporabe.</div>
+                    <div class="gdpr-sub-content">Poduzimamo tehničke i organizacijske mjere kako bismo zaštitili Vaše osobne podatke od neovlaštenog pristupa ili zlouporabe.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">9. Kolačići (Cookies) <span>+</span></button>
-                    <div class="gdpr-sub-content">Naša stranica ne koristi kolačiće za praćenje korisnika. Nemamo Google Analytics, Meta Pixel niti oglašivačke kolačiće. Kolačići koji se eventualno postavljaju isključivo su tehnički nužni za funkcioniranje stranice (tehnički kolačići mreže za isporuku sadržaja — CDN-a) za koje sukladno zakonu privola nije potrebna. Možete ih obrisati u postavkama preglednika.</div>
+                    <div class="gdpr-sub-content">Naša stranica ne koristi kolačiće za praćenje korisnika. Nemamo analitičke ili oglašivačke alate. Kolačići koji se eventualno postavljaju strogo su tehnički nužni za rad stranice.</div>
                 </div>
-
                 <div class="gdpr-sub-item">
                     <button class="gdpr-sub-trigger">10. Treće strane i izvršitelji obrade <span>+</span></button>
-                    <div class="gdpr-sub-content">
-                        Za pružanje pojedinih tehničkih funkcija stranice koristimo sljedeće provjerene pružatelje usluga obvezane na pridržavanje GDPR-a:
-                        <ul>
-                            <li><strong>FormSubmit.co</strong> — Usluga obrade obrazaca.</li>
-                            <li><strong>OpenStreetMap Foundation</strong> — Pružatelj kartografskih prikaza servisnog područja.</li>
-                            <li><strong>Bunny.net</strong> — CDN za sigurnu i brzu isporuku datoteka (zamjena za Google Fonts, lokacija u EU).</li>
-                            <li><strong>unpkg, jsDelivr</strong> — Javni tehnički CDN-ovi za skripte.</li>
-                            <li><strong>Google Firebase Hosting</strong> — Naš pružatelj hosting usluga (Google Ireland Ltd., Irska — EU).</li>
-                        </ul>
-                    </div>
+                    <div class="gdpr-sub-content">Za rad stranice koristimo: FormSubmit.co (obrada obrazaca), OpenStreetMap (karta područja), Bunny.net (isporuka fontova). Svi pružatelji obvezani su pridržavati se GDPR-a.</div>
                 </div>
             </div>
-            
             <button class="btn-submit-form" style="margin-top: 30px; background: #111; color:#fff;" onclick="closeGdprModal()">Zatvori</button>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
+    <footer class="premium-fluid-footer">
+        <div class="footer-top-row">
+            <div class="footer-brand">
+                <h2>Go Home</h2>
+                <span>Pokretni Salon</span>
+            </div>
+            <ul class="footer-nav-links">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="o-nama.html">O nama</a></li>
+                <li><a href="usluge.html">Usluge</a></li>
+                <li><a href="cjenik.html">Cjenik</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="rezervacija.html">Rezervacija</a></li>
+                <li><a href="#">Impressum</a></li>
+                <li><a href="#">Opći uvjeti</a></li>
+                <li><a href="rezervacija.html">Privatnost (GDPR)</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-main-grid">
+            <div class="footer-contact-block">
                 <h3>Dostupne lokacije i kontakt</h3>
-                <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
-                <p>📞 +385 99 481 9194</p>
-                <p>✉ gohomefrizerski@gmail.com</p>
-            </div>
-            <div class="footer-col">
-                <h3>Brzi izbornik</h3>
-                <ul style="margin-top: 20px;">
-                    <li><a href="o-nama.html">› O nama</a></li>
-                    <li><a href="usluge.html">› Usluge</a></li>
-                    <li><a href="cjenik.html">› Cjenik</a></li>
-                    <li><a href="galerija.html">› Galerija</a></li>
-                    <li><a href="faq.html">› FAQ</a></li>
-                    <li><a href="rezervacija.html">› Rezervacija</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Želite da mi vas kontaktiramo?</h3>
-                <div class="footer-form" style="margin-top: 20px;">
-                    <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku.</p>
-                    <form action="https://formsubmit.co/gohomefrizerski@gmail.com" method="POST">
-                        <div class="input-group">
-                            <input type="tel" placeholder="Upišite broj ovdje:" required>
-                            <button type="submit">Pošalji</button>
-                        </div>
-                    </form>
+                <div style="margin-top: 25px;">
+                    <div class="contact-meta-item">
+                        <span>📍</span>
+                        <span><strong>Osijek i okolica</strong> (do 20km)</span>
+                    </div>
+                    <div class="contact-meta-item">
+                        <span>📞</span>
+                        <span><strong>+385 99 481 9194</strong></span>
+                    </div>
+                    <div class="contact-meta-item">
+                        <span>✉</span>
+                        <span><strong>gohomefrizerski@gmail.com</strong></span>
+                    </div>
+                </div>
+                <div class="footer-social-wrapper">
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Instagram</a>
                 </div>
             </div>
+
+            <div class="footer-cta-form-box">
+                <h3>Želite da mi vas kontaktiramo?</h3>
+                <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku. Na taj način nam možete postaviti pitanja o uslugama i rezervirati termin</p>
+                
+                <form action="https://formsubmit.co/gohomefrizerski@gmail.com" method="POST">
+                    <div class="reorganized-input-group">
+                        <input type="tel" name="Brzi_Telefon" placeholder="Upišite broj ovdje:" required>
+                        <button type="submit">Pošalji</button>
+                    </div>
+                    <div class="footer-gdpr-text">
+                        <input type="checkbox" id="footer-gdpr" required>
+                        <label for="footer-gdpr">Suglasan/na sam da se moji podaci koriste isključivo radi realizacije frizerske usluge (<a href="rezervacija.html">Izjava o privatnosti</a>).</label>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; <strong>Go Home</strong>, sva prava pridržana.</p>
+
+        <div class="footer-base-row">
+            <p>&copy; 2026 <strong>Go Home</strong>, sva prava pridržana.</p>
             <p>Designed By <span><a href="#">KEZIĆ VIZUALI</a></span></p>
         </div>
     </footer>
@@ -340,20 +314,17 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // KARTA LOGIKA
         const osijekCoords = [45.5550, 18.6955];
         const map = L.map('live-map').setView(osijekCoords, 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        L.marker(osijekCoords).addTo(map).bindPopup('<b>Go Home Salon</b><br>Osijek i okolica.').openPopup();
+        L.marker(osijekCoords).addTo(map).bindPopup('<b>Go Home Salon</b><br>Osijek.').openPopup();
         L.circle(osijekCoords, { color: '#111111', fillColor: '#f3daf1', fillOpacity: 0.35, radius: 20000 }).addTo(map);
 
-        // POP-UP MODAL LOGIKA
         const modal = document.getElementById("gdprModal");
         function openGdprModal() { modal.style.display = "flex"; }
         function closeGdprModal() { modal.style.display = "none"; }
         window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
 
-        // UNUTARNJI AKORDEON ZA GDPR
         document.querySelectorAll('.gdpr-sub-trigger').forEach(trigger => {
             trigger.addEventListener('click', () => {
                 const content = trigger.nextElementSibling;
