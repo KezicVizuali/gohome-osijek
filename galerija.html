@@ -1,1 +1,272 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Home | Galerija radova</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --white-base: #ffffff;
+            --black-accent: #111111;
+            --pink-brand: #f3daf1;
+            --gray-light: #fdfafc;
+            --text-main: #222222;
+            --text-muted: #555555;
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background: var(--white-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; padding-top: 130px; }
+
+        /* TOP BAR & NAV */
+        .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: 45px; background: #191c24; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 7%; z-index: 1001; font-size: 0.75rem; }
+        nav { position: fixed; top: 45px; width: 100%; height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 7%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--black-accent); text-decoration: none; text-transform: uppercase; }
+        .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 5px; display: block; opacity: 0.5; }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { border-bottom: 2px solid var(--pink-brand); }
+
+        /* HEADER */
+        .page-header { background: var(--gray-light); padding: 60px 7%; text-align: center; border-bottom: 1px solid #eee; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px; }
+        .page-header p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+        /* FILTER GUMBI (Usklađeno sa screenshotom ali premium Fluid stil) */
+        .filter-container {
+            display: flex; justify-content: center; gap: 15px; padding: 40px 7% 20px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 12px 30px; background: transparent; color: var(--black-accent);
+            border: 1px solid var(--black-accent); font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--black-accent); color: #fff;
+            border-color: var(--black-accent);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        /* Mali rozi indikator ispod aktivnog gumba, diskretno */
+        .filter-btn.active {
+            border-bottom: 3px solid var(--pink-brand);
+        }
+
+        /* GALERIJA GRID MREŽA */
+        .gallery-wrap { padding: 20px 7% 80px; max-width: 1400px; margin: 0 auto; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Kartica slike s finim zlatno/rozo asimetričnim štihom */
+        .gallery-item {
+            position: relative; overflow: hidden; background: #fff;
+            border: 1px solid #eee; padding: 10px; transition: all 0.4s ease;
+        }
+        .gallery-item img {
+            width: 100%; height: 400px; object-fit: cover; display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover {
+            border-color: var(--black-accent);
+            transform: translateY(-5px);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.02);
+        }
+        
+        /* Overlay natpis na hoveru koji pokazuje kategoriju */
+        .item-overlay {
+            position: absolute; bottom: 10px; left: 10px; right: 10px;
+            background: rgba(255,255,255,0.95); padding: 15px;
+            text-align: center; transform: translateY(101%); transition: transform 0.3s ease;
+            border-top: 1px solid var(--black-accent);
+        }
+        .gallery-item:hover .item-overlay { transform: translateY(0); }
+        .item-overlay span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--black-accent); }
+
+        /* FOOTER */
+        footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; position: relative; }
+        .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
+        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+        .input-group { display: flex; border: 1px solid #fff; background: #fff; margin-top: 15px; }
+        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
+        .input-group button { padding: 0 25px; background: #fff; border: none; font-weight: 700; text-transform: uppercase; border-left: 1px solid #111; cursor: pointer; }
+
+        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; }
+        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-call { background: var(--black-accent); }
+        .btn-wa { background: #25D366; }
+
+        @media (max-width: 992px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div style="display: flex; gap: 30px;">
+            <span>Radno vrijeme: <strong>8:00 - 16:00</strong></span>
+            <span>Osijek i okolica (do 20km)</span>
+        </div>
+        <div>+385 99 481 9194</div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">Go Home<span>Pokretni Salon</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Početna</a></li>
+            <li><a href="o-nama.html">O nama</a></li>
+            <li><a href="usluge.html">Usluge</a></li>
+            <li><a href="cjenik.html">Cjenik</a></li>
+            <li><a href="galerija.html" class="active">Galerija</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="rezervacija.html">Rezervacija</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <p>Slike po kategorijama</p>
+        <h1>Galerija slika</h1>
+    </header>
+
+    <!-- INTERAKTIVNI FILTER GUMBI -->
+    <div class="filter-container" data-aos="fade-up">
+        <button class="filter-btn active" onclick="filterGallery('sve')">Sve</button>
+        <button class="filter-btn" onclick="filterGallery('frizure')">Frizure</button>
+        <button class="filter-btn" onclick="filterGallery('nokti')">Nokti</button>
+        <button class="filter-btn" onclick="filterGallery('trepavice')">Trepavice</button>
+        <button class="filter-btn" onclick="filterGallery('depilacija')">Depilacija</button>
+    </div>
+
+    <!-- GRUPA SLIKA S OZNAČENIM KATEGORIJAMA (data-category) -->
+    <main class="gallery-wrap">
+        <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
+            
+            <!-- Frizure -->
+            <div class="gallery-item frizure">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop" alt="Frizura 1">
+                <div class="item-overlay"><span>Kategorija: Frizure</span></div>
+            </div>
+            <div class="gallery-item frizure">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13df772650?q=80&w=600&auto=format&fit=crop" alt="Frizura 2">
+                <div class="item-overlay"><span>Kategorija: Frizure</span></div>
+            </div>
+            <div class="gallery-item frizure">
+                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?q=80&w=600&auto=format&fit=crop" alt="Frizura 3">
+                <div class="item-overlay"><span>Kategorija: Frizure</span></div>
+            </div>
+
+            <!-- Nokti -->
+            <div class="gallery-item nokti">
+                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=600&auto=format&fit=crop" alt="Nokti 1">
+                <div class="item-overlay"><span>Kategorija: Nokti</span></div>
+            </div>
+            <div class="gallery-item nokti">
+                <img src="https://images.unsplash.com/photo-1632345033839-230a7dec2476?q=80&w=600&auto=format&fit=crop" alt="Nokti 2">
+                <div class="item-overlay"><span>Kategorija: Nokti</span></div>
+            </div>
+
+            <!-- Trepavice -->
+            <div class="gallery-item trepavice">
+                <img src="https://images.unsplash.com/photo-1583001931036-64043b2384e4?q=80&w=600&auto=format&fit=crop" alt="Trepavice 1">
+                <div class="item-overlay"><span>Kategorija: Trepavice</span></div>
+            </div>
+
+            <!-- Depilacija -->
+            <div class="gallery-item depilacija">
+                <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?q=80&w=600&auto=format&fit=crop" alt="Depilacija 1">
+                <div class="item-overlay"><span>Kategorija: Depilacija</span></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- BOGATI FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Dostupne lokacije i kontakt</h3>
+                <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
+                <p>📞 +385 99 481 9194</p>
+                <p>✉ gohomefrizerski@gmail.com</p>
+                <div style="margin-top: 20px;">
+                    <a href="#" style="color:#fff; text-decoration:none; margin-right: 15px; font-weight:700;">Facebook</a>
+                    <a href="#" style="color:#fff; text-decoration:none; font-weight:700;">Instagram</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Brzi izbornik</h3>
+                <ul style="margin-top: 20px;">
+                    <li><a href="o-nama.html">› O nama</a></li>
+                    <li><a href="usluge.html">› Usluge</a></li>
+                    <li><a href="cjenik.html">› Cjenik</a></li>
+                    <li><a href="galerija.html">› Galerija</a></li>
+                    <li><a href="faq.html">› FAQ</a></li>
+                    <li><a href="rezervacija.html">› Rezervacija</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Želite da mi vas kontaktiramo?</h3>
+                <div class="footer-form" style="margin-top: 20px;">
+                    <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku.</p>
+                    <form action="#" method="POST">
+                        <div class="input-group">
+                            <input type="tel" placeholder="Upišite broj ovdje:" required>
+                            <button type="submit">Pošalji</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <strong>Go Home</strong>, sva prava pridržana.</p>
+            <p>Designed By <span><a href="#">KEZIĆ VIZUALI</a></span></p>
+        </div>
+    </footer>
+
+    <div class="action-bar">
+        <a href="tel:+385994819194" class="btn-call">Nazovi odmah</a>
+        <a href="https://wa.me/+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
+    </div>
+
+    <!-- FILTRACIJSKA LOGIKA -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function filterGallery(category) {
+            // Makni 'active' klasu sa svih gumba i dodaj na kliknuti
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filtriraj stavke
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'sve') {
+                    item.style.display = 'block';
+                } else {
+                    if (item.classList.contains(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
