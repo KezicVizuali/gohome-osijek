@@ -35,7 +35,7 @@
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px; }
         .page-header p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
-        /* GRIDS & CARDS (Fluid.hr stil, oštri rubovi) */
+        /* GRIDS & CARDS */
         .section-wrap { padding: 80px 7%; max-width: 1300px; margin: 0 auto; }
         .section-title-center { text-align: center; margin-bottom: 60px; }
         .section-title-center h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
@@ -47,8 +47,6 @@
         
         .u-img-box { position: relative; width: 100%; height: 280px; overflow: hidden; border-bottom: 1px solid #e0e0e0; }
         .u-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Roza detalj/okvir koji asocira na njezine asimetrične linije */
         .u-img-box::after { content: ''; position: absolute; bottom: 10px; right: 10px; width: 30px; height: 30px; border-bottom: 2px solid var(--pink-brand); border-right: 2px solid var(--pink-brand); }
 
         .u-content { padding: 30px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
@@ -58,24 +56,47 @@
         .btn-card { padding: 12px 25px; background: transparent; color: var(--black-accent); border: 1px solid var(--black-accent); text-transform: uppercase; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-decoration: none; display: inline-block; width: max-content; margin: 0 auto; transition: 0.3s; }
         .btn-card:hover { background: var(--black-accent); color: #fff; }
 
-        /* FOOTER */
-        footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; margin-top: 60px; }
-        .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; position: relative; }
-        .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
-        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .input-group { display: flex; border: 1px solid #fff; background: #fff; margin-top: 15px; }
-        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
-        .input-group button { padding: 0 25px; background: #fff; border: none; font-weight: 700; text-transform: uppercase; border-left: 1px solid #111; cursor: pointer; }
-
-        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; }
-        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
-        .btn-call { background: var(--black-accent); }
-        .btn-wa { background: #25D366; }
+        /* REORGANIZIRANI PREMIUM FOOTER - FLUID STIL (60-20-20) */
+        .premium-fluid-footer {
+            background: #11141a !important;
+            color: #ffffff !important;
+            padding: 90px 7% 40px !important;
+            font-family: 'Montserrat', sans-serif !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+            margin-top: 60px;
+        }
+        .footer-top-row { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 50px; margin-bottom: 50px; }
+        .footer-brand h2 { font-family: 'Playfair Display', serif !important; font-size: 2.2rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: -1px !important; margin-bottom: 5px !important; color: #fff !important; }
+        .footer-brand span { font-size: 0.65rem !important; color: #f3daf1 !important; letter-spacing: 5px !important; text-transform: uppercase !important; display: block !important; font-weight: 700 !important; }
+        .footer-nav-links { display: flex; gap: 25px; list-style: none; flex-wrap: wrap; max-width: 750px; justify-content: flex-end; }
+        .footer-nav-links a { color: #a1a6b5 !important; text-decoration: none !important; font-size: 0.8rem !important; text-transform: uppercase !spacing: 1px !important; font-weight: 600 !important; transition: 0.3s !important; }
+        .footer-nav-links a:hover { color: #fff !important; border-bottom: 1px solid #f3daf1 !important; }
+        .footer-main-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+        .footer-contact-block h3, .footer-cta-form-box h3 { font-size: 1.1rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; margin-bottom: 35px !important; font-weight: 700 !important; position: relative !important; color: #fff !important; }
+        .footer-contact-block h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 2px; background: #f3daf1; }
+        .contact-meta-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; color: #a1a6b5 !important; font-size: 0.95rem !important; }
+        .contact-meta-item strong { color: #fff !important; }
+        .footer-social-wrapper { margin-top: 35px; display: flex; gap: 20px; }
+        .footer-social-wrapper a { color: #fff !important; text-decoration: none !important; font-size: 0.8rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; font-weight: 700 !important; transition: 0.3s !important; border-bottom: 1px solid rgba(255,255,255,0.2) !important; padding-bottom: 3px; }
+        .footer-social-wrapper a:hover { color: #f3daf1 !important; border-bottom-color: #f3daf1 !important; }
+        .footer-cta-form-box p { color: #a1a6b5 !important; font-size: 0.85rem !important; line-height: 1.6 !important; margin-bottom: 30px !important; text-align: left !important; }
+        .reorganized-input-group { display: flex; border-bottom: 1px solid rgba(255, 255, 255, 0.2); background: transparent; transition: 0.3s; }
+        .reorganized-input-group:focus-within { border-bottom-color: #f3daf1; }
+        .reorganized-input-group input { flex: 1; padding: 15px 5px !important; background: transparent !important; border: none !important; outline: none !important; font-family: 'Montserrat', sans-serif !important; font-size: 0.95rem !important; color: #fff !important; }
+        .reorganized-input-group button { padding: 0 35px !important; background: transparent !important; border: none !important; color: #fff !important; font-weight: 700 !important; text-transform: uppercase; font-size: 0.75rem !important; letter-spacing: 2px !important; cursor: pointer !important; transition: 0.3s !important; }
+        .reorganized-input-group button:hover { color: #f3daf1 !important; }
+        .footer-gdpr-text { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; }
+        .footer-gdpr-text input { margin-top: 4px; accent-color: #f3daf1; }
+        .footer-gdpr-text label { font-size: 0.75rem !important; color: rgba(161, 166, 181, 0.7) !important; line-height: 1.6 !important; text-align: left !important; }
+        .footer-gdpr-text label a { color: #fff !important; text-decoration: underline !important; }
+        .footer-base-row { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem !important; color: #666 !important; }
+        .footer-base-row span a { color: #f3daf1 !important; text-decoration: none !important; font-weight: 600 !important; letter-spacing: 1px !important; }
 
         @media (max-width: 992px) {
             .usluge-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
+            .footer-top-row { flex-direction: column; gap: 30px; align-items: center; text-align: center; }
+            .footer-nav-links { justify-content: center; gap: 15px; }
+            .footer-main-grid { grid-template-columns: 1fr; gap: 50px; }
             .nav-links { display: none; }
         }
     </style>
@@ -108,7 +129,7 @@
         <h1>Usluge</h1>
     </header>
 
-    <!-- GLAVNE USLUGE (Screenshot 1) -->
+    <!-- GLAVNE USLUGE (Screenshot 1 & 2) -->
     <main class="section-wrap">
         <div class="usluge-grid">
             <!-- Sve frizerske usluge -->
@@ -141,7 +162,7 @@
                 </div>
             </div>
 
-            <!-- Depilacija voskom (Screenshot 2) -->
+            <!-- Depilacija voskom -->
             <div class="u-card" data-aos="fade-up">
                 <div class="u-img-box"><img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?q=80&w=500&auto=format&fit=crop" alt="Depilacija voskom"></div>
                 <div class="u-content">
@@ -151,7 +172,7 @@
                 </div>
             </div>
 
-            <!-- Najam kombija (Screenshot 2) -->
+            <!-- Najam kombija -->
             <div class="u-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="u-img-box"><img src="598513606_122235404372144994_4442553155684881800_n.jpg" alt="Najam kombija"></div>
                 <div class="u-content">
@@ -163,7 +184,7 @@
         </div>
     </main>
 
-    <!-- NAŠI PAKETI SEKCIJA (Screenshot 3 & 4) -->
+    <!-- NAŠI PAKETI (Screenshot 3 & 4) -->
     <section class="section-wrap" style="background: var(--gray-light); border-top: 1px solid #eee;">
         <div class="section-title-center" data-aos="fade-up">
             <p>Posebne ponude</p>
@@ -207,7 +228,7 @@
                 <div class="u-img-box"><img src="https://images.unsplash.com/photo-1634712282287-14ed57b9cc89?q=80&w=500&auto=format&fit=crop" alt="Glow paket"></div>
                 <div class="u-content">
                     <h3>Glow paket (nokti + trepavice)</h3>
-                    <p>Kombinacija geliranja noktiju i ugradnje trepavica u jednom dolasku — uštedite vrijeme i ostvarite popust na ukupnu cijenu.</p>
+                    <p>Kombinacija geliranja noktiju i ugradnje trepavica in jednom dolasku — uštedite vrijeme i ostvarite popust na ukupnu cijenu.</p>
                     <a href="rezervacija.html" class="btn-card">Zatraži ponudu</a>
                 </div>
             </div>
@@ -235,47 +256,69 @@
         <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Cijene paketa formiraju se individualno — pogledajte stranicu Cjenik i pošaljite upit.</p>
     </section>
 
-    <!-- BOGATI FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
+    <!-- NOVI REORGANIZIRANI PREMIUM FOOTER -->
+    <footer class="premium-fluid-footer">
+        <div class="footer-top-row">
+            <div class="footer-brand">
+                <h2>Go Home</h2>
+                <span>Pokretni Salon</span>
+            </div>
+            <ul class="footer-nav-links">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="o-nama.html">O nama</a></li>
+                <li><a href="usluge.html">Usluge</a></li>
+                <li><a href="cjenik.html">Cjenik</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="rezervacija.html">Rezervacija</a></li>
+                <li><a href="#">Impressum</a></li>
+                <li><a href="#">Opći uvjeti</a></li>
+                <li><a href="rezervacija.html">Privatnost (GDPR)</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-main-grid">
+            <div class="footer-contact-block">
                 <h3>Dostupne lokacije i kontakt</h3>
-                <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
-                <p>📞 +385 99 481 9194</p>
-                <p>✉ gohomefrizerski@gmail.com</p>
-                <div style="margin-top: 20px;">
-                    <a href="#" style="color:#fff; text-decoration:none; margin-right: 15px; font-weight:700;">Facebook</a>
-                    <a href="#" style="color:#fff; text-decoration:none; font-weight:700;">Instagram</a>
+                <div style="margin-top: 25px;">
+                    <div class="contact-meta-item">
+                        <span>📍</span>
+                        <span><strong>Osijek i okolica</strong> (do 20km)</span>
+                    </div>
+                    <div class="contact-meta-item">
+                        <span>📞</span>
+                        <span><strong>+385 99 481 9194</strong></span>
+                    </div>
+                    <div class="contact-meta-item">
+                        <span>✉</span>
+                        <span><strong>gohomefrizerski@gmail.com</strong></span>
+                    </div>
+                </div>
+                <div class="footer-social-wrapper">
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Instagram</a>
                 </div>
             </div>
-            
-            <div class="footer-col">
-                <h3>Brzi izbornik</h3>
-                <ul style="margin-top: 20px;">
-                    <li><a href="o-nama.html">› O nama</a></li>
-                    <li><a href="usluge.html">› Usluge</a></li>
-                    <li><a href="cjenik.html">› Cjenik</a></li>
-                    <li><a href="galerija.html">› Galerija</a></li>
-                    <li><a href="faq.html">› FAQ</a></li>
-                    <li><a href="rezervacija.html">› Rezervacija</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
+
+            <div class="footer-cta-form-box">
                 <h3>Želite da mi vas kontaktiramo?</h3>
-                <div class="footer-form" style="margin-top: 20px;">
-                    <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku. Na taj način nam možete postaviti pitanja o uslugama i rezervirati termin</p>
-                    <form action="#" method="POST">
-                        <div class="input-group">
-                            <input type="tel" placeholder="Upišite broj ovdje:" required>
-                            <button type="submit">Pošalji</button>
-                        </div>
-                    </form>
-                </div>
+                <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku. Na taj način nam možete postaviti pitanja o uslugama i rezervirati termin</p>
+                
+                <form action="https://formsubmit.co/gohomefrizerski@gmail.com" method="POST">
+                    <div class="reorganized-input-group">
+                        <input type="tel" name="Brzi_Telefon" placeholder="Upišite broj ovdje:" required>
+                        <button type="submit">Pošalji</button>
+                    </div>
+                    <div class="footer-gdpr-text">
+                        <input type="checkbox" id="footer-gdpr" required>
+                        <label for="footer-gdpr">Suglasan/na sam da se moji podaci koriste isključivo radi realizacije frizerske usluge (<a href="rezervacija.html">Izjava o privatnosti</a>).</label>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; <strong>Go Home</strong>, sva prava pridržana.</p>
+
+        <div class="footer-base-row">
+            <p>&copy; 2026 <strong>Go Home</strong>, sva prava pridržana.</p>
             <p>Designed By <span><a href="#">KEZIĆ VIZUALI</a></span></p>
         </div>
     </footer>
