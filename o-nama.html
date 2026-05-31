@@ -50,7 +50,7 @@
         .grid-block { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
         .grid-block.reverse { grid-template-columns: 1.1fr 0.9fr; }
 
-        /* Stilovi za slike s rozom pozadinom (60-20-20 pravilo) */
+        /* Stilovi za slike s rozom pozadinom */
         .image-container { position: relative; width: 100%; height: 450px; }
         .pink-backdrop { position: absolute; top: -20px; left: -20px; width: 80%; height: 90%; background: var(--pink-brand); z-index: 1; }
         .pink-backdrop.right-align { left: auto; right: -20px; width: 85%; }
@@ -69,6 +69,19 @@
         }
         .btn-outline:hover { background: var(--black-accent); color: #fff; }
 
+        /* NOVA SEKCIJA ZA PREMIUM VIDEO (Fluid.hr stil) */
+        .video-section { padding: 40px 7% 80px; background: var(--white-base); text-align: center; }
+        .video-wrapper { 
+            max-width: 1200px; margin: 0 auto; position: relative;
+            border: 1px solid var(--black-accent); padding: 15px; background: var(--white-base);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+        }
+        .video-wrapper::before {
+            content: ''; position: absolute; bottom: -15px; right: -15px; width: 100px; height: 100px;
+            border-bottom: 3px solid var(--pink-brand); border-right: 3px solid var(--pink-brand); z-index: 1; pointer-events: none;
+        }
+        .video-wrapper video { width: 100%; display: block; position: relative; z-index: 2; object-fit: cover; }
+
         /* TIM SEKCIJA */
         .team-section { padding: 100px 7%; background: var(--gray-light); text-align: center; border-top: 1px solid #eee; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1200px; margin: 50px auto 0; }
@@ -78,7 +91,7 @@
         .team-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--black-accent); margin-bottom: 5px; }
         .team-card p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
-        /* BOGATI I TOČAN FOOTER (Prema njezinoj slici) */
+        /* BOGATI I TOČAN FOOTER */
         footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; font-family: 'Montserrat', sans-serif; }
         .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
         
@@ -91,7 +104,6 @@
         .footer-col ul li a { color: #a1a6b5; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
         .footer-col ul li a:hover { color: var(--pink-brand); padding-left: 5px; }
 
-        /* Footer Forma (Točno prema screenshotu) */
         .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
         .footer-form p { font-size: 0.8rem; color: #a1a6b5; line-height: 1.5; margin-bottom: 20px; text-align: left; }
         .input-group { display: flex; width: 100%; border: 1px solid #ffffff; background: #fff; }
@@ -143,12 +155,11 @@
         </ul>
     </nav>
 
-    <!-- BLOK 1: TKO SMO MI? (Točan tekst s Vaše prve slike) -->
+    <!-- BLOK 1: TKO SMO MI? -->
     <section class="content-section" style="padding-top: 60px;">
         <div class="grid-block">
             <div class="image-container" data-aos="fade-right">
                 <div class="pink-backdrop"></div>
-                <!-- Ovdje ide njezin kvadratni logo s kuće i tekstom Go Home -->
                 <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Go Home Pokretni Salon">
             </div>
             <div class="text-container" data-aos="fade-left">
@@ -159,7 +170,7 @@
         </div>
     </section>
 
-    <!-- BLOK 2: DUGOGODIŠNJE ISKUSTVO (Točan tekst s Vaše prve slike) -->
+    <!-- BLOK 2: DUGOGODIŠNJE ISKUSTVO -->
     <section class="content-section">
         <div class="grid-block reverse">
             <div class="text-container" data-aos="fade-right">
@@ -171,18 +182,16 @@
             </div>
             <div class="image-container" data-aos="fade-left">
                 <div class="pink-backdrop right-align"></div>
-                <!-- Ovdje idu one tri spojene mini slike (nokti, trepavice, kosa) -->
                 <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Usluge ljepote">
             </div>
         </div>
     </section>
 
-    <!-- BLOK 3: KAKO SVE FUNKCIONIRA? (Točan tekst s Vaše druge slike) -->
+    <!-- BLOK 3: KAKO SVE FUNKCIONIRA? -->
     <section class="content-section">
         <div class="grid-block">
             <div class="image-container" data-aos="fade-right">
                 <div class="pink-backdrop"></div>
-                <!-- Slika djevojke na mobitelu u crvenoj haljini sa slike -->
                 <img src="https://images.unsplash.com/photo-1522337360788-8b13df772650?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Rezervacija termina">
             </div>
             <div class="text-container" data-aos="fade-left">
@@ -192,33 +201,39 @@
         </div>
     </section>
 
-    <!-- BLOK 4: TIM (Točan tekst s Vaše treće slike) -->
+    <!-- NOVA PREMIUM VIDEO SEKCIJA (60-20-20 pravilo) -->
+    <section class="video-section" data-aos="fade-up">
+        <div class="video-wrapper">
+            <!-- Dodani atributi za luksuzni automatski loop bez zvuka -->
+            <video playsinline autoplay muted loop preload="auto">
+                <source src="salon-video.mp4" type="video/mp4">
+                Vaš preglednik ne podržava video element.
+            </video>
+        </div>
+    </section>
+
+    <!-- BLOK 4: TIM -->
     <section class="team-section">
         <div class="section-header" data-aos="fade-up">
             <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--black-accent);">Naš tim</span>
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-top: 5px;">Upoznajte naš stručni tim</h2>
         </div>
         <div class="team-grid">
-            <!-- Slađa Tašić -->
             <div class="team-card" data-aos="zoom-in">
-                <!-- Stvarna slika Slađe s njezina weba -->
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop" class="team-avatar" alt="Slađa Tašić">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop" class="team-avatar" alt="Slađa">
                 <h3>Slađa Tašić</h3>
                 <p>Frizerka / Specijalist za njegu kože i noktiju</p>
             </div>
-            <!-- Uskoro 1 -->
             <div class="team-card" data-aos="zoom-in" data-aos-delay="100">
                 <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
                 <h3>Uskoro</h3>
                 <p>Soon</p>
             </div>
-            <!-- Uskoro 2 -->
             <div class="team-card" data-aos="zoom-in" data-aos-delay="200">
                 <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
                 <h3>Uskoro</h3>
                 <p>Soon</p>
             </div>
-            <!-- Uskoro 3 -->
             <div class="team-card" data-aos="zoom-in" data-aos-delay="300">
                 <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
                 <h3>Uskoro</h3>
@@ -227,10 +242,9 @@
         </div>
     </section>
 
-    <!-- BOGATI FOOTER SA SCREENSHOTA -->
+    <!-- BOGATI FOOTER -->
     <footer>
         <div class="footer-grid">
-            <!-- Kolona 1: Lokacija i kontakt -->
             <div class="footer-col">
                 <h3>Dostupne lokacije i kontakt</h3>
                 <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
@@ -242,7 +256,6 @@
                 </div>
             </div>
             
-            <!-- Kolona 2: Brzi izbornik -->
             <div class="footer-col">
                 <h3>Brzi izbornik</h3>
                 <ul style="margin-top: 20px;">
@@ -255,7 +268,6 @@
                 </ul>
             </div>
             
-            <!-- Kolona 3: Forma za broj mobitela -->
             <div class="footer-col">
                 <h3>Želite da mi vas kontaktiramo?</h3>
                 <div class="footer-form" style="margin-top: 20px;">
@@ -283,7 +295,7 @@
     <!-- STICKY ACTIONS ZA MOBITELE -->
     <div class="action-bar">
         <a href="tel:+385994819194" class="btn-call">Nazovi odmah</a>
-        <a href="https://wa.me+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
+        <a href="https://wa.me/+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
