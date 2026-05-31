@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Home | Često postavljana pitanja</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --white-base: #ffffff;    /* 60% dominantna čistoća */
+            --black-accent: #111111;  /* 20% premium struktura i tekst */
+            --pink-brand: #f3daf1;   /* 20% identitet klijentice */
+            --gray-light: #fdfafc;
+            --text-main: #222222;
+            --text-muted: #555555;
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background: var(--white-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; padding-top: 130px; }
+
+        /* TOP BAR & NAV */
+        .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: 45px; background: #191c24; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 7%; z-index: 1001; font-size: 0.75rem; }
+        nav { position: fixed; top: 45px; width: 100%; height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 7%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--black-accent); text-decoration: none; text-transform: uppercase; }
+        .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 5px; display: block; opacity: 0.5; }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { border-bottom: 2px solid var(--pink-brand); }
+
+        /* HEADER */
+        .page-header { background: var(--gray-light); padding: 60px 7%; text-align: center; border-bottom: 1px solid #eee; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px; }
+        .page-header p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+        /* FAQ LAYOUT (Fluid.hr stil) */
+        .faq-wrap { padding: 60px 7% 80px; max-width: 1000px; margin: 0 auto; }
+        
+        .accordion-container { margin-top: 30px; }
+        .faq-item { border-bottom: 1px solid #e0e0e0; padding: 10px 0; transition: 0.3s; }
+        
+        .faq-trigger {
+            width: 100%; padding: 25px 10px; background: transparent; border: none;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 600;
+            text-align: left; cursor: pointer; color: var(--black-accent); transition: 0.3s;
+        }
+        .faq-trigger:hover { color: var(--text-muted); padding-left: 15px; }
+        
+        /* Brojevi ispred pitanja s profinjenim izgledom */
+        .faq-trigger span.num { color: var(--black-accent); font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; margin-right: 15px; border-bottom: 2px solid var(--pink-brand); }
+        
+        /* Plus / Minus ikona */
+        .icon-box { font-size: 1.2rem; font-weight: 300; color: var(--black-accent); transition: transform 0.3s ease; }
+        .faq-item.active .icon-box { transform: rotate(45px); color: var(--text-muted); }
+
+        .faq-content {
+            padding: 0 10px 25px 45px; color: var(--text-muted); font-size: 0.95rem;
+            font-weight: 400; display: none; line-height: 1.7; text-align: justify;
+        }
+        .faq-content strong { color: var(--black-accent); font-weight: 600; }
+
+        /* Niste pronašli odgovor CTA */
+        .faq-cta { text-align: center; padding: 40px 7%; background: var(--gray-light); border-top: 1px solid #eee; font-size: 0.95rem; font-weight: 500; }
+        .faq-cta a { color: var(--black-accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--pink-brand); transition: 0.3s; }
+        .faq-cta a:hover { background: var(--pink-brand); }
+
+        /* FOOTER */
+        footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; position: relative; }
+        .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
+        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+        .input-group { display: flex; border: 1px solid #fff; background: #fff; margin-top: 15px; }
+        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
+        .input-group button { padding: 0 25px; background: #fff; border: none; font-weight: 700; text-transform: uppercase; border-left: 1px solid #111; cursor: pointer; }
+
+        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; }
+        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-call { background: var(--black-accent); }
+        .btn-wa { background: #25D366; }
+
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .faq-trigger { font-size: 0.95rem; }
+            .faq-content { padding-left: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div style="display: flex; gap: 30px;">
+            <span>Radno vrijeme: <strong>8:00 - 16:00</strong></span>
+            <span>Osijek i okolica (do 20km)</span>
+        </div>
+        <div>+385 99 481 9194</div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">Go Home<span>Pokretni Salon</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Početna</a></li>
+            <li><a href="o-nama.html">O nama</a></li>
+            <li><a href="usluge.html">Usluge</a></li>
+            <li><a href="cjenik.html">Cjenik</a></li>
+            <li><a href="galerija.html">Galerija</a></li>
+            <li><a href="faq.html" class="active">FAQ</a></li>
+            <li><a href="rezervacija.html">Rezervacija</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <p>Sve što vas zanima</p>
+        <h1>Često postavljana pitanja</h1>
+    </header>
+
+    <main class="faq-wrap" data-aos="fade-up">
+        <div class="accordion-container">
+            
+            <!-- Pitanje 1 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">01.</span>Na kojem području pružate usluge?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Pružamo usluge na području <strong>grada Osijeka i okolice u radijusu do 20 km</strong>. Za lokacije izvan tog područja moguć je dolazak uz prethodni dogovor i eventualnu nadoknadu putnih troškova. Servisno područje možete vidjeti na karti na stranici za rezervaciju.</div>
+            </div>
+
+            <!-- Pitanje 2 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">02.</span>Kako rezervirati termin?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Termin možete rezervirati putem <strong>online obrasca</strong>, telefonom na <strong>+385 99 481 9194</strong> ili e-mailom na <strong>gohomefrizerski@gmail.com</strong>. Termin se smatra potvrđenim tek nakon naše pisane ili telefonske potvrde.</div>
+            </div>
+
+            <!-- Pitanje 3 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">03.</span>Što sve trebam pripremiti za vaš dolazak?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Dovoljno je da osigurate stolicu, slobodan prostor s dovoljno svjetla i pristup struji (te tekućoj vodi gdje je primjenjivo). Cijeli profesionalni alat i potrošni materijal donosimo sami.</div>
+            </div>
+
+            <!-- Pitanje 4 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">04.</span>Kako se vrši plaćanje?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Plaćanje se vrši <strong>nakon pružene usluge</strong>, gotovinom na adresi ili bankovnom transakcijom (uplatom na IBAN obrta) prema dogovoru. Za grupne rezervacije moguć je predujam do 30% iznosa.</div>
+            </div>
+
+            <!-- Pitanje 5 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">05.</span>Mogu li otkazati ili pomaknuti termin?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Da. Termin možete otkazati ili pomaknuti <strong>najkasnije 24 sata prije dogovorenog termina</strong>, bez ikakvih troškova. Detalji u Općim uvjetima.</div>
+            </div>
+
+            <!-- Pitanje 6 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">06.</span>Imate li popuste za grupne rezervacije?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Da. Za <strong>više osoba na istoj adresi</strong> i za pakete (Wedding paket, Obiteljski paket 2+1, paketi šišanja za 5/10 osoba) odobravamo razne popuste. Za individualnu ponudu kontaktirajte nas.</div>
+            </div>
+
+            <!-- Pitanje 7 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">07.</span>Kako osiguravate higijenu i sterilnost alata?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Sav profesionalni alat dezinficira se i sterilizira nakon svake klijentkinje, sukladno standardima struke. Za jednokratne pribore (jastučići za depilaciju, britvice, kapice) koristimo isključivo nove.</div>
+            </div>
+
+            <!-- Pitanje 8 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">08.</span>Pružate li usluge za vjenčanja i posebne prigode?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Da. Imamo poseban <strong>Wedding paket</strong> koji uključuje svečanu frizuru, manikuru i ugradnju trepavica. Termine je preporučljivo rezervirati nekoliko tjedana unaprijed.</div>
+            </div>
+
+            <!-- Pitanje 9 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">09.</span>Što ako kasnim ili nisam doma kad dođete?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Molimo vas da nas o eventualnom kašnjenju obavijestite što prije. Budući da imamo fiksne rasporede i dolazimo na adrese, u slučaju kašnjenja većeg od 15 minuta bez prethodne obavijesti, zadržavamo pravo naplate dijela usluge ili otkazivanja termina radi poštivanja rasporeda drugih klijenata.</div>
+            </div>
+
+            <!-- Pitanje 10 -->
+            <div class="faq-item">
+                <button class="faq-trigger"><span class="faq-title"><span class="num">10.</span>Mogu li koristiti vlastitu boju ili proizvod?</span><span class="icon-box">+</span></button>
+                <div class="faq-content">Naš pokretni salon koristi isključivo vrhunske profesionalne proizvode koji jamče stabilnost, sigurnost i zdravlje vaše kose i kože. Korištenje vlastitih boja ili preparata donesenih od strane klijenta nije preporučljivo, no u iznimnim slučajevima (medicinske indikacije, specifične alergije) moguće je uz prethodnu konzultaciju prilikom rezervacije.</div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="faq-cta" data-aos="fade-up">
+        Niste pronašli odgovor? <a href="rezervacija.html">Kontaktirajte nas</a> ili nazovite <a href="tel:+385994819194">+385 99 481 9194</a>.
+    </div>
+
+    <!-- BOGATI FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Dostupne lokacije i kontakt</h3>
+                <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
+                <p>📞 +385 99 481 9194</p>
+                <p>✉ gohomefrizerski@gmail.com</p>
+                <div style="margin-top: 20px;">
+                    <a href="#" style="color:#fff; text-decoration:none; margin-right: 15px; font-weight:700;">Facebook</a>
+                    <a href="#" style="color:#fff; text-decoration:none; font-weight:700;">Instagram</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Brzi izbornik</h3>
+                <ul style="margin-top: 20px;">
+                    <li><a href="o-nama.html">› O nama</a></li>
+                    <li><a href="usluge.html">› Usluge</a></li>
+                    <li><a href="cjenik.html">› Cjenik</a></li>
+                    <li><a href="galerija.html">› Galerija</a></li>
+                    <li><a href="faq.html">› FAQ</a></li>
+                    <li><a href="rezervacija.html">› Rezervacija</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Želite da mi vas kontaktiramo?</h3>
+                <div class="footer-form" style="margin-top: 20px;">
+                    <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku.</p>
+                    <form action="#" method="POST">
+                        <div class="input-group">
+                            <input type="tel" placeholder="Upišite broj ovdje:" required>
+                            <button type="submit">Pošalji</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <strong>Go Home</strong>, sva prava pridržana.</p>
+            <p>Designed By <span><a href="#">KEZIĆ VIZUALI</a></span></p>
+        </div>
+    </footer>
+
+    <div class="action-bar">
+        <a href="tel:+385994819194" class="btn-call">Nazovi odmah</a>
+        <a href="https://wa.me/+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
+    </div>
+
+    <!-- SKRIPTA ZA GLATKO OTVARANJE AKORDEONA -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const parent = trigger.parentElement;
+                const content = trigger.nextElementSibling;
+                const icon = trigger.querySelector('.icon-box');
+
+                // Ako je već otvoren, zatvori ga
+                if (parent.classList.contains('active')) {
+                    content.style.display = 'none';
+                    parent.classList.remove('active');
+                    icon.textContent = '+';
+                } else {
+                    // Zatvori sve ostale (opcionalno za čišći pregled)
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-content').style.display = 'none';
+                        item.querySelector('.icon-box').textContent = '+';
+                    });
+
+                    // Otvori kliknuti
+                    content.style.display = 'block';
+                    parent.classList.add('active');
+                    icon.textContent = '−';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
