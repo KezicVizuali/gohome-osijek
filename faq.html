@@ -26,18 +26,17 @@
         nav { position: fixed; top: 45px; width: 100%; height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 7%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--black-accent); text-decoration: none; text-transform: uppercase; }
         .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 5px; display: block; opacity: 0.5; }
-        .nav-links { display: flex; gap: 20px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { border-bottom: 2px solid var(--pink-brand); }
+        .nav-links { display: flex; gap: 20px; align-items: center; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; padding: 5px 0; }
+        .nav-links a:hover, .nav-links a.active { color: var(--black-accent); border-bottom: 2px solid var(--pink-brand); }
 
         /* HEADER */
         .page-header { background: var(--gray-light); padding: 60px 7%; text-align: center; border-bottom: 1px solid #eee; }
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px; }
         .page-header p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
-        /* FAQ LAYOUT (Fluid.hr stil) */
+        /* FAQ LAYOUT */
         .faq-wrap { padding: 60px 7% 80px; max-width: 1000px; margin: 0 auto; }
-        
         .accordion-container { margin-top: 30px; }
         .faq-item { border-bottom: 1px solid #e0e0e0; padding: 10px 0; transition: 0.3s; }
         
@@ -48,13 +47,10 @@
             text-align: left; cursor: pointer; color: var(--black-accent); transition: 0.3s;
         }
         .faq-trigger:hover { color: var(--text-muted); padding-left: 15px; }
-        
-        /* Brojevi ispred pitanja s profinjenim izgledom */
         .faq-trigger span.num { color: var(--black-accent); font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; margin-right: 15px; border-bottom: 2px solid var(--pink-brand); }
         
-        /* Plus / Minus ikona */
         .icon-box { font-size: 1.2rem; font-weight: 300; color: var(--black-accent); transition: transform 0.3s ease; }
-        .faq-item.active .icon-box { transform: rotate(45px); color: var(--text-muted); }
+        .faq-item.active .icon-box { transform: rotate(45deg); color: var(--text-muted); }
 
         .faq-content {
             padding: 0 10px 25px 45px; color: var(--text-muted); font-size: 0.95rem;
@@ -62,7 +58,7 @@
         }
         .faq-content strong { color: var(--black-accent); font-weight: 600; }
 
-        /* Niste pronašli odgovor CTA */
+        /* CTA BOX */
         .faq-cta { text-align: center; padding: 40px 7%; background: var(--gray-light); border-top: 1px solid #eee; font-size: 0.95rem; font-weight: 500; }
         .faq-cta a { color: var(--black-accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--pink-brand); transition: 0.3s; }
         .faq-cta a:hover { background: var(--pink-brand); }
@@ -72,18 +68,30 @@
         .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
         .footer-col h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; position: relative; }
         .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
-        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .input-group { display: flex; border: 1px solid #fff; background: #fff; margin-top: 15px; }
-        .input-group input { flex: 1; padding: 15px; border: none; outline: none; }
-        .input-group button { padding: 0 25px; background: #fff; border: none; font-weight: 700; text-transform: uppercase; border-left: 1px solid #111; cursor: pointer; }
+        .footer-col p { color: #a1a6b5; font-size: 0.85rem; margin-bottom: 12px; font-weight: 400; display: flex; align-items: center; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #a1a6b5; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
+        .footer-col ul li a:hover { color: var(--pink-brand); padding-left: 5px; }
 
-        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; }
-        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
-        .btn-call { background: var(--black-accent); }
+        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+        .footer-form p { font-size: 0.8rem; color: #a1a6b5; line-height: 1.5; margin-bottom: 20px; text-align: left; }
+        .input-group { display: flex; width: 100%; border: 1px solid #ffffff; background: #fff; }
+        .input-group input { flex: 1; padding: 15px; border: none; outline: none; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #000; }
+        .input-group button { padding: 0 25px; background: #fff; border: none; color: #000; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; cursor: pointer; border-left: 1px solid #111; transition: 0.3s; }
+        .input-group button:hover { background: var(--pink-brand); }
+
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #777; }
+        .footer-bottom span a { color: var(--pink-brand); text-decoration: none; font-weight: 600; }
+
+        /* MOBILNI FIXNI GUMBI */
+        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
+        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .btn-call { background: var(--black-accent); border-right: 1px solid rgba(255,255,255,0.1); }
         .btn-wa { background: #25D366; }
 
         @media (max-width: 992px) {
-            .footer-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .nav-links { display: none; }
             .faq-trigger { font-size: 0.95rem; }
             .faq-content { padding-left: 10px; }
@@ -169,16 +177,20 @@
                 <div class="faq-content">Da. Imamo poseban <strong>Wedding paket</strong> koji uključuje svečanu frizuru, manikuru i ugradnju trepavica. Termine je preporučljivo rezervirati nekoliko tjedana unaprijed.</div>
             </div>
 
-            <!-- Pitanje 9 -->
+            <!-- Pitanje 9 (Točan tekst sa Screenshot_10.png) -->
             <div class="faq-item">
                 <button class="faq-trigger"><span class="faq-title"><span class="num">09.</span>Što ako kasnim ili nisam doma kad dođete?</span><span class="icon-box">+</span></button>
-                <div class="faq-content">Molimo vas da nas o eventualnom kašnjenju obavijestite što prije. Budući da imamo fiksne rasporede i dolazimo na adrese, u slučaju kašnjenja većeg od 15 minuta bez prethodne obavijesti, zadržavamo pravo naplate dijela usluge ili otkazivanja termina radi poštivanja rasporeda drugih klijenata.</div>
+                <div class="faq-content">U slučaju kašnjenja dužeg od 15 minuta zadržavamo pravo skratiti uslugu unutar preostalog dogovorenog vremena. U slučaju da niste dostupni na adresi (no-show), naplaćujemo 50 % vrijednosti dogovorene usluge zbog putnih i organizacijskih troškova.</div>
             </div>
 
-            <!-- Pitanje 10 -->
+            <!-- Pitanje 10 (Točan tekst sa Screenshot_11.png + naš lifestyle dio) -->
             <div class="faq-item">
                 <button class="faq-trigger"><span class="faq-title"><span class="num">10.</span>Mogu li koristiti vlastitu boju ili proizvod?</span><span class="icon-box">+</span></button>
-                <div class="faq-content">Naš pokretni salon koristi isključivo vrhunske profesionalne proizvode koji jamče stabilnost, sigurnost i zdravlje vaše kose i kože. Korištenje vlastitih boja ili preparata donesenih od strane klijenta nije preporučljivo, no u iznimnim slučajevima (medicinske indikacije, specifične alergije) moguće je uz prethodnu konzultaciju prilikom rezervacije.</div>
+                <div class="faq-content">
+                    Da, moguće je. Javite nam unaprijed ako koristite vlastitu boju ili proizvod kako bismo prilagodili procjenu trajanja i cijene usluge.
+                    <br><br>
+                    <em>Napomena našeg salona:</em> Svi naši mobilni tretmani izvode se s vrhunskim profesionalnim linijama kozmetike i boja koje jamče sigurnost i zdravlje Vaše kose i kože. Ukoliko inzistirate na vlastitim proizvodima, tehnički ishod i postojanost prilagođavamo prema vrsti Vašeg proizvoda.
+                </div>
             </div>
 
         </div>
@@ -238,7 +250,6 @@
         <a href="https://wa.me/+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
     </div>
 
-    <!-- SKRIPTA ZA GLATKO OTVARANJE AKORDEONA -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
@@ -249,20 +260,17 @@
                 const content = trigger.nextElementSibling;
                 const icon = trigger.querySelector('.icon-box');
 
-                // Ako je već otvoren, zatvori ga
                 if (parent.classList.contains('active')) {
                     content.style.display = 'none';
                     parent.classList.remove('active');
                     icon.textContent = '+';
                 } else {
-                    // Zatvori sve ostale (opcionalno za čišći pregled)
                     document.querySelectorAll('.faq-item').forEach(item => {
                         item.classList.remove('active');
                         item.querySelector('.faq-content').style.display = 'none';
                         item.querySelector('.icon-box').textContent = '+';
                     });
 
-                    // Otvori kliknuti
                     content.style.display = 'block';
                     parent.classList.add('active');
                     icon.textContent = '−';
