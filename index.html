@@ -3,97 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Home | Pokretni Frizerski Salon & Kozmetika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Go Home | Pokretni Frizerski Salon</title>
+    
+    <!-- Google Fonts: Playfair za luksuzne naslove, Montserrat za moderan tekst -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         :root {
-            --pink-light: #f3daf1; 
-            --pink-accent: #e4b2df; 
-            --navy: #1f2436; 
+            --pink-soft: #fbf4f9; /* Ultra luksuzna, prigušena roza */
+            --pink-brand: #f3daf1; /* Njezina roza */
+            --accent: #8b1a41; /* Bordo za luksuzne detalje */
+            --navy: #191c24; /* Gotovo crna, ali duboka navy nijansa za maksimalan kontrast */
             --white: #ffffff;
-            --text-light: #555e7b;
+            --text-muted: #626875;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { background: var(--white); color: var(--navy); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; padding-top: 130px; padding-bottom: 70px; }
+        body { background: var(--white); color: var(--navy); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; }
 
-        /* TOP INFO BAR */
+        /* TOP BAR */
         .top-bar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 45px;
-            background: #191c24; color: #fff; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 7%; z-index: 1001; font-size: 0.75rem; font-weight: 500;
-        }
-        .top-info { display: flex; gap: 30px; }
-        .top-info span em { color: #aaa; font-style: normal; display: block; font-size: 0.65rem; text-transform: uppercase; }
-        .top-social a { color: #fff; text-decoration: none; margin-left: 15px; font-weight: 600; }
-
-        /* GLAVNA NAVIGACIJA */
-        nav {
-            position: fixed; top: 45px; width: 100%; height: 85px;
+            width: 100%; height: 45px; background: var(--navy); color: #fff;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 7%; background: rgba(243, 218, 241, 0.95); 
-            backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 0 7%; font-size: 0.75rem; font-weight: 500; letter-spacing: 1px;
+            position: relative; z-index: 1002;
         }
-        .logo { font-size: 1.7rem; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; }
-        .logo span { font-size: 0.65rem; color: var(--navy); letter-spacing: 3px; display: block; margin-top: -3px; font-weight: 600; opacity: 0.8; }
+        .top-info span { margin-right: 30px; }
+        .top-info span strong { color: var(--pink-brand); font-weight: 600; }
 
-        .nav-links { display: flex; gap: 20px; align-items: center; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--navy); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; padding: 5px 0; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); }
-        .nav-links a.active { border-bottom: 2px solid var(--white); }
-
-        /* HERO SEKCIJA */
-        #pocetna {
-            height: calc(100vh - 130px); display: grid; grid-template-columns: 1.2fr 1fr; 
-            align-items: center; padding: 0 7%; background: var(--pink-light); position: relative; overflow: hidden;
+        /* PREMIUM FIKSNA NAVIGACIJA */
+        nav {
+            position: fixed; top: 45px; left: 0; width: 100%; height: 90px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 7%; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px); z-index: 1000;
+            border-bottom: 1px solid rgba(25, 28, 36, 0.05);
+            transition: all 0.4s ease;
         }
-        .hero-content { max-width: 580px; z-index: 2; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 25px; }
-        .hero-content p { font-size: 1.05rem; color: var(--text-light); margin-bottom: 35px; font-weight: 400; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: -1px; }
+        .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; color: var(--accent); letter-spacing: 5px; display: block; margin-top: -3px; font-weight: 700; text-transform: uppercase; }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; padding: 8px 0; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--accent); font-weight: 700; }
+
+        /* ASIMETRIČAN SPLIT-SCREEN HERO (Početna) */
+        #hero-split {
+            height: calc(100vh - 135px); display: grid; grid-template-columns: 1.1fr 0.9fr;
+            background: var(--white); position: relative; margin-top: 90px;
+        }
         
-        .btn { 
-            padding: 16px 40px; background: transparent; color: var(--navy); 
-            text-decoration: none; text-transform: uppercase; letter-spacing: 2px; 
-            font-weight: 700; font-size: 0.8rem; transition: 0.3s; 
-            display: inline-block; border: 2px solid var(--navy); cursor: pointer; 
+        /* Lijeva strana - Čisti luksuz i tipografija */
+        .hero-left {
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 10% 0 15%; background: var(--pink-soft); position: relative;
         }
-        .btn:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
+        .hero-left::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 150px; height: 100%;
+            background: linear-gradient(to right, transparent, var(--white)); pointer-events: none;
+        }
+        .hero-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 6px; color: var(--accent); font-weight: 700; margin-bottom: 20px; display: block; }
+        .hero-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--navy); font-weight: 700; line-height: 1.1; margin-bottom: 25px; }
+        .hero-left h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+        .hero-left p { font-size: 1rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 300; max-width: 480px; line-height: 1.7; }
 
-        .hero-img-wrapper { width: 100%; height: 85%; position: relative; display: flex; justify-content: flex-end; }
-        .hero-img-shape {
-            width: 90%; height: 100%;
+        /* Luksuzni gumb s animacijom */
+        .btn-premium {
+            padding: 18px 45px; background: var(--navy); color: var(--white);
+            text-decoration: none; text-transform: uppercase; letter-spacing: 3px;
+            font-weight: 600; font-size: 0.75rem; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: inline-block; width: max-content; box-shadow: 0 10px 20px rgba(25, 28, 36, 0.15);
+        }
+        .btn-premium:hover { background: var(--accent); transform: translateY(-4px); box-shadow: 0 15px 30px rgba(139, 26, 65, 0.25); }
+
+        /* Desna strana - Slika preko cijelog ekrana s rozo-zlatnim rubom */
+        .hero-right {
+            position: relative; width: 100%; height: 100%; overflow: hidden;
+        }
+        .hero-main-img {
+            width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=1200&auto=format&fit=crop');
             background-size: cover; background-position: center;
-            border-radius: 50% 30% 70% 40% / 50% 60% 40% 60%; 
-            border: 4px solid var(--white); box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transition: transform 6s ease;
         }
+        #hero-split:hover .hero-main-img { transform: scale(1.05); }
+        
+        /* Plutajući elegantni element koji razbija ravnine */
+        .floating-badge {
+            position: absolute; bottom: 10%; left: -50px; background: var(--white);
+            padding: 25px 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent); z-index: 10;
+        }
+        .floating-badge h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); }
+        .floating-badge p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 5px; }
 
-        /* MOBILE BAR */
+        /* MOBILE STICKY ACTION BAR */
         .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
         .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
         .btn-call { background: var(--navy); }
         .btn-wa { background: #25D366; }
 
         @media (max-width: 992px) {
-            #pocetna { grid-template-columns: 1fr; text-align: center; height: auto; padding: 60px 7%; }
-            .hero-content { max-width: 100%; margin-bottom: 40px; }
-            .hero-img-wrapper { justify-content: center; height: 350px; }
-            .hero-img-shape { width: 100%; max-width: 450px; }
+            #hero-split { grid-template-columns: 1fr; height: auto; margin-top: 90px; }
+            .hero-left { padding: 80px 7%; height: auto; }
+            .hero-left::before { display: none; }
+            .hero-right { height: 450px; }
+            .floating-badge { left: 5%; bottom: 5%; }
             .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- TOP BAR -->
     <div class="top-bar">
         <div class="top-info">
-            <span>8:00 - 16:00<em>Radno vrijeme</em></span>
-            <span>+385 99 481 9194<em>Nazovite za rezervaciju</em></span>
+            <span>Radno vrijeme: <strong>8:00 - 16:00</strong></span>
+            <span>Rezervacije: <strong>+385 99 481 9194</strong></span>
         </div>
-        <div class="top-social"><a href="#">FB</a><a href="#">IG</a></div>
     </div>
 
+    <!-- GLAVNA NAVIGACIJA -->
     <nav>
         <a href="index.html" class="logo">Go Home<span>Pokretni Salon</span></a>
         <ul class="nav-links">
@@ -107,27 +140,36 @@
         </ul>
     </nav>
 
-    <header id="pocetna">
-        <div class="hero-content" data-aos="fade-right">
-            <h1>Pokretni frizerski salon</h1>
-            <p>Zaboravite na odlazak u salon i beskonačna čekanja na red. Rezervirajte termin i dolazimo na Vašu kućnu adresu!</p>
-            <a href="rezervacija.html" class="btn">Rezerviraj!</a>
+    <!-- NOVI LUKSUZNI HERO DIO -->
+    <section id="hero-split">
+        <div class="hero-left" data-aos="fade-right" data-aos-duration="1000">
+            <span class="hero-tag">Osijek i okolica</span>
+            <h1>Pokretni <br>frizerski <em>salon</em></h1>
+            <p>Zaboravite na odlazak u salon i beskonačna čekanja na red. Doživite vrhunsku njegu i apsolutni komfor izravno na Vašoj kućnoj adresi.</p>
+            <a href="rezervacija.html" class="btn-premium">Rezervirajte termin</a>
         </div>
-        <div class="hero-img-wrapper" data-aos="fade-left">
-            <div class="hero-img-shape"></div>
+        
+        <div class="hero-right" data-aos="fade-left" data-aos-duration="1000">
+            <div class="hero-main-img"></div>
+            <!-- Plutajuća luksuzna kartica -->
+            <div class="floating-badge" data-aos="fade-up" data-aos-delay="400">
+                <h4>Vrhunska usluga</h4>
+                <p>U intimi Vašeg doma</p>
+            </div>
         </div>
-    </header>
+    </section>
 
+    <!-- MOBILE ACTIONS -->
     <div class="action-bar">
         <a href="tel:+385994819194" class="btn-call">Nazovi odmah</a>
         <a href="https://wa.me/385994819194" target="_blank" class="btn-wa">WhatsApp Chat</a>
     </div>
 
-    <footer style="padding: 40px; text-align: center; font-size: 0.7rem; color: var(--text-light); letter-spacing: 2px; background: var(--pink-light);">
-        &copy; 2026 GO HOME POKRETNI SALON | DIZAJN: <span style="color: var(--navy); font-weight: 700;">KEZIĆ VIZUALI</span>
+    <footer style="padding: 40px; text-align: center; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; background: var(--pink-soft); border-top: 1px solid rgba(25, 28, 36, 0.03);">
+        &copy; 2026 GO HOME POKRETNI SALON | DIZAJN I RAZVOJ: <span style="color: var(--navy); font-weight: 700;">KEZIĆ VIZUALI</span>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script>AOS.init({ once: true });</script>
 </body>
 </html>
