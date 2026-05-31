@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Home | O nama</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --white-base: #ffffff;    /* 60% dominantna čistoća */
+            --black-accent: #111111;  /* 20% premium struktura i tekst */
+            --pink-brand: #f3daf1;   /* 20% identitet klijentice */
+            --gray-light: #fdfafc;
+            --text-main: #222222;
+            --text-muted: #555555;
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background: var(--white-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; padding-top: 130px; }
+
+        /* TOP INFO BAR */
+        .top-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 45px;
+            background: #191c24; color: #fff; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 7%; z-index: 1001; font-size: 0.75rem; font-weight: 500;
+        }
+        .top-info { display: flex; gap: 30px; }
+        .top-info span em { color: #aaa; font-style: normal; display: block; font-size: 0.65rem; text-transform: uppercase; }
+
+        /* NAVIGACIJA */
+        nav {
+            position: fixed; top: 45px; width: 100%; height: 85px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 7%; background: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--black-accent); text-decoration: none; text-transform: uppercase; }
+        .logo span { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; color: var(--black-accent); letter-spacing: 5px; display: block; margin-top: -3px; font-weight: 700; opacity: 0.5; }
+
+        .nav-links { display: flex; gap: 20px; align-items: center; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--black-accent); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; padding: 5px 0; }
+        .nav-links a:hover, .nav-links a.active { color: var(--black-accent); border-bottom: 2px solid var(--pink-brand); }
+
+        /* STRANICA LAYOUT - ASIMETRIČNI FLUID BLOKOVI */
+        .content-section { padding: 80px 7%; background: var(--white-base); }
+        .grid-block { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .grid-block.reverse { grid-template-columns: 1.1fr 0.9fr; }
+
+        /* Stilovi za slike s rozom pozadinom (60-20-20 pravilo) */
+        .image-container { position: relative; width: 100%; height: 450px; }
+        .pink-backdrop { position: absolute; top: -20px; left: -20px; width: 80%; height: 90%; background: var(--pink-brand); z-index: 1; }
+        .pink-backdrop.right-align { left: auto; right: -20px; width: 85%; }
+        .block-img { position: relative; width: 100%; height: 100%; object-fit: cover; z-index: 2; border: 1px solid var(--black-accent); }
+
+        /* Tipografija u Fluid.hr stilu */
+        .text-container h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--black-accent); margin-bottom: 25px; line-height: 1.2; }
+        .text-container p { color: var(--text-muted); font-size: 0.95rem; font-weight: 400; margin-bottom: 20px; text-align: justify; }
+        .sub-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; display: block; }
+
+        .btn-outline {
+            padding: 15px 35px; background: transparent; color: var(--black-accent);
+            text-decoration: none; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 700; font-size: 0.75rem; border: 1px solid var(--black-accent);
+            transition: 0.3s; display: inline-block; margin-top: 15px;
+        }
+        .btn-outline:hover { background: var(--black-accent); color: #fff; }
+
+        /* TIM SEKCIJA */
+        .team-section { padding: 100px 7%; background: var(--gray-light); text-align: center; border-top: 1px solid #eee; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1200px; margin: 50px auto 0; }
+        .team-card { background: var(--white-base); border: 1px solid #eee; padding: 25px; text-align: center; transition: 0.3s; }
+        .team-card:hover { border-color: var(--black-accent); transform: translateY(-5px); }
+        .team-avatar { width: 100%; height: 240px; object-fit: cover; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .team-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--black-accent); margin-bottom: 5px; }
+        .team-card p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* BOGATI I TOČAN FOOTER (Prema njezinoj slici) */
+        footer { background: #191c24; color: #ffffff; padding: 80px 7% 40px; font-family: 'Montserrat', sans-serif; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+        
+        .footer-col h3 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; color: var(--white-base); position: relative; }
+        .footer-col h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--pink-brand); }
+        
+        .footer-col p { color: #a1a6b5; font-size: 0.85rem; margin-bottom: 12px; font-weight: 400; display: flex; align-items: center; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #a1a6b5; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
+        .footer-col ul li a:hover { color: var(--pink-brand); padding-left: 5px; }
+
+        /* Footer Forma (Točno prema screenshotu) */
+        .footer-form { background: rgba(255,255,255,0.02); padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+        .footer-form p { font-size: 0.8rem; color: #a1a6b5; line-height: 1.5; margin-bottom: 20px; text-align: left; }
+        .input-group { display: flex; width: 100%; border: 1px solid #ffffff; background: #fff; }
+        .input-group input { flex: 1; padding: 15px; border: none; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #000; outline: none; }
+        .input-group button { padding: 0 25px; background: #fff; border: none; color: #000; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; cursor: pointer; border-left: 1px solid #111; transition: 0.3s; }
+        .input-group button:hover { background: var(--pink-brand); }
+        
+        .privacy-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 15px; font-size: 0.7rem; color: #a1a6b5; text-align: left; }
+        .privacy-check input { margin-top: 3px; }
+        .privacy-check a { color: #fff; text-decoration: underline; }
+
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #777; }
+        .footer-bottom span a { color: var(--pink-brand); text-decoration: none; font-weight: 600; }
+
+        /* MOBILNI FIXNI GUMBI */
+        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; display: flex; z-index: 2000; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
+        .action-bar a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .btn-call { background: var(--black-accent); border-right: 1px solid rgba(255,255,255,0.1); }
+        .btn-wa { background: #25D366; }
+
+        @media (max-width: 992px) {
+            .grid-block, .grid-block.reverse { grid-template-columns: 1fr; gap: 40px; }
+            .image-container { height: 350px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-info">
+            <span>Radno vrijeme: <strong>8:00 - 16:00</strong></span>
+            <span>Osijek i okolica (do 20km)</span>
+        </div>
+        <div>+385 99 481 9194</div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">Go Home<span>Pokretni Salon</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Početna</a></li>
+            <li><a href="o-nama.html" class="active">O nama</a></li>
+            <li><a href="usluge.html">Usluge</a></li>
+            <li><a href="cjenik.html">Cjenik</a></li>
+            <li><a href="galerija.html">Galerija</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="rezervacija.html">Rezervacija</a></li>
+        </ul>
+    </nav>
+
+    <!-- BLOK 1: TKO SMO MI? (Točan tekst s Vaše prve slike) -->
+    <section class="content-section" style="padding-top: 60px;">
+        <div class="grid-block">
+            <div class="image-container" data-aos="fade-right">
+                <div class="pink-backdrop"></div>
+                <!-- Ovdje ide njezin kvadratni logo s kuće i tekstom Go Home -->
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Go Home Pokretni Salon">
+            </div>
+            <div class="text-container" data-aos="fade-left">
+                <h2>Tko smo mi?</h2>
+                <p>Mi smo tim posvećenih i iskusnih frizera koji su odlučili preoblikovati tradicionalni način pružanja frizerskih usluga i usluga uljepšavanja. Umjesto da vi dolazite do nas, mi dolazimo do vas! Naš pokretni frizerski salon osmišljen je kako bi vam pružio vrhunsko frizersko iskustvo iz udobnosti vašeg doma, kancelarije ili bilo koje druge lokacije po vašem izboru.</p>
+                <p>Naša misija je omogućiti vam savršen izgled bez stresa i gubljenja vremena. Razumijemo koliko su vaši dani zauzeti, te smo kreirali uslugu koja je prilagođena vašim potrebama. Naš cilj je da svaki put kada nas posjetite, odnosno kada mi posjetimo vas, budete zadovoljni, osvježeni i puni samopouzdanja.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOK 2: DUGOGODIŠNJE ISKUSTVO (Točan tekst s Vaše prve slike) -->
+    <section class="content-section">
+        <div class="grid-block reverse">
+            <div class="text-container" data-aos="fade-right">
+                <span class="sub-tag">Saznajte više informacija o nama</span>
+                <h2>Dugogodišnje iskustvo</h2>
+                <p>Dugogodišnje iskustvo našeg osoblja ispuniti će sva vaša očekivanja i želje. U ponudi imamo sve frizerske usluge, geliranje noktiju, trajni lak, ugradnja umjetnih trepavica, uređivanje obrva i depilacija tijela voskom.</p>
+                <p>Ukoliko trebate više usluga unutar istog termina ili za više osoba na istoj adresi, možete očekivati i razne popuste.</p>
+                <a href="rezervacija.html" class="btn-outline">Saznajte više</a>
+            </div>
+            <div class="image-container" data-aos="fade-left">
+                <div class="pink-backdrop right-align"></div>
+                <!-- Ovdje idu one tri spojene mini slike (nokti, trepavice, kosa) -->
+                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Usluge ljepote">
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOK 3: KAKO SVE FUNKCIONIRA? (Točan tekst s Vaše druge slike) -->
+    <section class="content-section">
+        <div class="grid-block">
+            <div class="image-container" data-aos="fade-right">
+                <div class="pink-backdrop"></div>
+                <!-- Slika djevojke na mobitelu u crvenoj haljini sa slike -->
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13df772650?q=80&w=600&auto=format&fit=crop" class="block-img" alt="Rezervacija termina">
+            </div>
+            <div class="text-container" data-aos="fade-left">
+                <h2>Kako sve funkcionira?</h2>
+                <p>Vrlo jednostavno! Sve što trebate uraditi je kontaktirati nas i dogovoriti termin. Naše osoblje će doći na vašu adresu u dogovoreno vrijeme, opremljeni svime što je potrebno za pružanje vrhunske usluge. Naši tretmani prilagođeni su tako da pružaju udobnost i profesionalni ambijent, omogućavajući vam da se opustite i uživate u tretmanu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOK 4: TIM (Točan tekst s Vaše treće slike) -->
+    <section class="team-section">
+        <div class="section-header" data-aos="fade-up">
+            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--black-accent);">Naš tim</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-top: 5px;">Upoznajte naš stručni tim</h2>
+        </div>
+        <div class="team-grid">
+            <!-- Slađa Tašić -->
+            <div class="team-card" data-aos="zoom-in">
+                <!-- Stvarna slika Slađe s njezina weba -->
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop" class="team-avatar" alt="Slađa Tašić">
+                <h3>Slađa Tašić</h3>
+                <p>Frizerka / Specijalist za njegu kože i noktiju</p>
+            </div>
+            <!-- Uskoro 1 -->
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
+                <h3>Uskoro</h3>
+                <p>Soon</p>
+            </div>
+            <!-- Uskoro 2 -->
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
+                <h3>Uskoro</h3>
+                <p>Soon</p>
+            </div>
+            <!-- Uskoro 3 -->
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="team-avatar" style="background: #f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:3rem;">✨</div>
+                <h3>Uskoro</h3>
+                <p>Soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOGATI FOOTER SA SCREENSHOTA -->
+    <footer>
+        <div class="footer-grid">
+            <!-- Kolona 1: Lokacija i kontakt -->
+            <div class="footer-col">
+                <h3>Dostupne lokacije i kontakt</h3>
+                <p style="margin-top: 20px;">📍 Osijek i okolica (do 20km)</p>
+                <p>📞 +385 99 481 9194</p>
+                <p>✉ gohomefrizerski@gmail.com</p>
+                <div style="margin-top: 20px;">
+                    <a href="#" style="color:#fff; text-decoration:none; margin-right: 15px; font-weight:700;">Facebook</a>
+                    <a href="#" style="color:#fff; text-decoration:none; font-weight:700;">Instagram</a>
+                </div>
+            </div>
+            
+            <!-- Kolona 2: Brzi izbornik -->
+            <div class="footer-col">
+                <h3>Brzi izbornik</h3>
+                <ul style="margin-top: 20px;">
+                    <li><a href="o-nama.html">› O nama</a></li>
+                    <li><a href="usluge.html">› Usluge</a></li>
+                    <li><a href="cjenik.html">› Cjenik</a></li>
+                    <li><a href="galerija.html">› Galerija</a></li>
+                    <li><a href="faq.html">› FAQ</a></li>
+                    <li><a href="rezervacija.html">› Rezervacija</a></li>
+                </ul>
+            </div>
+            
+            <!-- Kolona 3: Forma za broj mobitela -->
+            <div class="footer-col">
+                <h3>Želite da mi vas kontaktiramo?</h3>
+                <div class="footer-form" style="margin-top: 20px;">
+                    <p>Ovdje upišite svoj broj telefona i kontaktirati ćemo vas u najkraćem mogućem roku. Na taj način nam možete postaviti pitanja o uslugama i rezervirati termin</p>
+                    <form action="#" method="POST">
+                        <div class="input-group">
+                            <input type="tel" placeholder="Upišite broj ovdje:" required>
+                            <button type="submit">Pošalji</button>
+                        </div>
+                        <div class="privacy-check">
+                            <input type="checkbox" id="privacy" required>
+                            <label for="privacy">Suglasan/na sam da se moji podaci koriste isključivo radi realizacije frizerske usluge (<a href="#">Izjava o privatnosti</a>).</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <strong>Go Home</strong>, sva prava pridržana.</p>
+            <p>Designed By <span><a href="#">KEZIĆ VIZUALI</a></span></p>
+        </div>
+    </footer>
+
+    <!-- STICKY ACTIONS ZA MOBITELE -->
+    <div class="action-bar">
+        <a href="tel:+385994819194" class="btn-call">Nazovi odmah</a>
+        <a href="https://wa.me+385994819194" target="_blank" class="btn-wa">WhatsApp</a>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
